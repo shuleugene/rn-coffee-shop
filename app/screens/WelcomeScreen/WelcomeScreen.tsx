@@ -1,7 +1,7 @@
 import React from 'react';
 import {ImageBackground, View, Text, StyleSheet} from 'react-native';
-import theme from '../../../theme';
-import Button from '../../../components/Button/Button';
+import theme from '../../theme';
+import Button from '../../components/Button/Button';
 
 const WelcomeScreen = () => {
   const onPressGetStarted = () => {};
@@ -10,7 +10,7 @@ const WelcomeScreen = () => {
     <View style={styles?.container}>
       <ImageBackground
         style={styles?.imageBackground}
-        source={require('../../../assets/images/cup-coffee.png')}
+        source={require('../../assets/images/cup-coffee.png')}
       />
       <View style={styles.contentContainer}>
         <Text style={styles?.title}>
