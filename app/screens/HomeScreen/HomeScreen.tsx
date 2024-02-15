@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import theme from '../../theme';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import Promo from '../../components/Promo/Promo';
 
 const HomeScreen = () => {
   return (
@@ -36,6 +37,11 @@ const HomeScreen = () => {
             </View>
           </View>
           <SearchBar placeholder="Search Coffee" />
+          <Promo
+            title="By one get one FREE"
+            badge="Promo"
+            image={require('../../assets/images/promo-image.png')}
+          />
         </View>
       </SafeAreaView>
     </View>
@@ -57,7 +63,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingHorizontal: 20,
-    gap: 20,
+    gap: 40,
   },
   topContentContainer: {
     justifyContent: 'space-between',

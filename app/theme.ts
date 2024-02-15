@@ -8,6 +8,8 @@ const theme = {
 
     grey100: '#A9A9A9',
     grey200: '#8D8D8D',
+
+    red: '#ED5151',
   },
 };
 

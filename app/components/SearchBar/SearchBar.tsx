@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.lightBlack,
     borderRadius: 16,
-    paddingHorizontal: 6,
+    paddingHorizontal: 12,
     paddingVertical: 8,
     flexDirection: 'row',
     gap: 10,
