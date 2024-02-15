@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   View,
   Text,
@@ -10,8 +10,40 @@ import {
 import theme from '../../theme';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Promo from '../../components/Promo/Promo';
+import CategoriesSlider from '../../components/CategoriesSlider/CategoriesSlider';
+
+const CATEGORIES = [
+  {
+    title: 'Cappuccino',
+    id: 'cappuccino',
+  },
+  {
+    title: 'Machiato',
+    id: 'machiato',
+  },
+  {
+    title: 'Latte',
+    id: 'latte',
+  },
+  {
+    title: 'Espresso',
+    id: 'espresso',
+  },
+  {
+    title: 'Americano',
+    id: 'americano',
+  },
+];
 
 const HomeScreen = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    CATEGORIES[0].id,
+  );
+
+  const onSelectCategory = useCallback((id: string) => {
+    setSelectedCategory(id);
+  }, []);
+
   return (
     <View style={styles?.container}>
       <ImageBackground
@@ -41,6 +73,11 @@ const HomeScreen = () => {
             title="By one get one FREE"
             badge="Promo"
             image={require('../../assets/images/promo-image.png')}
+          />
+          <CategoriesSlider
+            categories={CATEGORIES}
+            selectedCategory={selectedCategory}
+            onCategoryPress={onSelectCategory}
           />
         </View>
       </SafeAreaView>
