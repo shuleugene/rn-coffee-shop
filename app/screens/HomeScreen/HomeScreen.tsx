@@ -6,11 +6,14 @@ import {
   ImageBackground,
   SafeAreaView,
   Image,
+  ScrollView,
 } from 'react-native';
 import theme from '../../theme';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Promo from '../../components/Promo/Promo';
 import CategoriesSlider from '../../components/CategoriesSlider/CategoriesSlider';
+import {useGetProductsQuery} from '../../store/services/products';
+import Product from '../../components/Product/Product';
 
 const CATEGORIES = [
   {
@@ -36,6 +39,10 @@ const CATEGORIES = [
 ];
 
 const HomeScreen = () => {
+  const {data, error, isLoading} = useGetProductsQuery();
+
+  const products = data?.record || [];
+
   const [selectedCategory, setSelectedCategory] = useState<string>(
     CATEGORIES[0].id,
   );
@@ -74,11 +81,20 @@ const HomeScreen = () => {
             badge="Promo"
             image={require('../../assets/images/promo-image.png')}
           />
-          <CategoriesSlider
-            categories={CATEGORIES}
-            selectedCategory={selectedCategory}
-            onCategoryPress={onSelectCategory}
-          />
+          <View>
+            <CategoriesSlider
+              categories={CATEGORIES}
+              selectedCategory={selectedCategory}
+              onCategoryPress={onSelectCategory}
+            />
+          </View>
+          <ScrollView>
+            <View style={styles.productsContainer}>
+              {products.map(product => (
+                <Product key={product.id} product={product} />
+              ))}
+            </View>
+          </ScrollView>
         </View>
       </SafeAreaView>
     </View>
@@ -126,6 +142,12 @@ const styles = StyleSheet.create({
     height: 44,
     borderRadius: 14,
     objectFit: 'cover',
+  },
+  productsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 20,
+    flexWrap: 'wrap',
   },
 });
 
