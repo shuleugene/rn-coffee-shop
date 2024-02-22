@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {
   View,
   Text,
@@ -21,8 +21,8 @@ const CATEGORIES = [
     id: 'cappuccino',
   },
   {
-    title: 'Machiato',
-    id: 'machiato',
+    title: 'Macchiato',
+    id: 'macchiato',
   },
   {
     title: 'Latte',
@@ -39,12 +39,18 @@ const CATEGORIES = [
 ];
 
 const HomeScreen = () => {
-  const {data, error, isLoading} = useGetProductsQuery();
-
-  const products = data?.record || [];
-
   const [selectedCategory, setSelectedCategory] = useState<string>(
     CATEGORIES[0].id,
+  );
+
+  const {data} = useGetProductsQuery();
+
+  const products = useMemo(
+    () =>
+      (data?.record || [])?.filter(
+        product => product.category === selectedCategory,
+      ),
+    [selectedCategory, data?.record],
   );
 
   const onSelectCategory = useCallback((id: string) => {

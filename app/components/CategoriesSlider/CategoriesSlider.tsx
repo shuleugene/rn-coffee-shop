@@ -27,6 +27,7 @@ const CategoriesSlider: FC<Props> = ({
             styles.categoryWrapper,
             isCurrentCategorySelected ? styles.selectedCategory : null,
           ]}
+          key={`category-${category.id}`}
           onPress={() => onCategoryPress(category.id)}>
           <Text
             style={[

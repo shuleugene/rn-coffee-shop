@@ -28,8 +28,8 @@ const Product: FC<Props> = ({product}) => {
         <Text style={styles.description}>{description}</Text>
         <View style={styles.priceContainer}>
           <Text style={styles.price}>${price}</Text>
-          <TouchableOpacity style={styles.addToCartButton}>
-            <Text style={styles.addToCartButtonText}>+</Text>
+          <TouchableOpacity style={styles.pdpButton}>
+            <Text style={styles.pdpButtonText}>+</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     color: theme.colors.black,
     fontWeight: 'bold',
   },
-  addToCartButton: {
+  pdpButton: {
     backgroundColor: theme.colors.primary,
     borderRadius: 8,
     width: 32,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  addToCartButtonText: {
+  pdpButtonText: {
     color: theme.colors.white,
     fontSize: 12,
     fontWeight: 'bold',
