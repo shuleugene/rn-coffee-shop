@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useCallback} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import theme from '../../theme';
 import type {Product as ProductType} from '../../store/types';
@@ -6,10 +6,17 @@ import {StarIcon} from '../../icons/StarIcon';
 
 type Props = {
   product: ProductType;
+  onPress: (product: ProductType) => void;
 };
 
-const Product: FC<Props> = ({product}) => {
+const Product: FC<Props> = ({product, onPress}) => {
   const {image: productImage, title, description, price, rating} = product;
+
+  const onPressPdpButton = useCallback(
+    () => onPress(product),
+    [product, onPress],
+  );
+
   return (
     <View style={styles.container}>
       <View>
@@ -28,7 +35,7 @@ const Product: FC<Props> = ({product}) => {
         <Text style={styles.description}>{description}</Text>
         <View style={styles.priceContainer}>
           <Text style={styles.price}>${price}</Text>
-          <TouchableOpacity style={styles.pdpButton}>
+          <TouchableOpacity style={styles.pdpButton} onPress={onPressPdpButton}>
             <Text style={styles.pdpButtonText}>+</Text>
           </TouchableOpacity>
         </View>

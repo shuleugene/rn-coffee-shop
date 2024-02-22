@@ -6,7 +6,7 @@ import {
   ImageBackground,
   SafeAreaView,
   Image,
-  ScrollView,
+  FlatList,
 } from 'react-native';
 import theme from '../../theme';
 import SearchBar from '../../components/SearchBar/SearchBar';
@@ -14,6 +14,7 @@ import Promo from '../../components/Promo/Promo';
 import CategoriesSlider from '../../components/CategoriesSlider/CategoriesSlider';
 import {useGetProductsQuery} from '../../store/services/products';
 import Product from '../../components/Product/Product';
+import type {Product as ProductType} from '../../store/types';
 
 const CATEGORIES = [
   {
@@ -57,6 +58,10 @@ const HomeScreen = () => {
     setSelectedCategory(id);
   }, []);
 
+  const onProductClick = useCallback((product: ProductType) => {
+    console.log(product);
+  }, []);
+
   return (
     <View style={styles?.container}>
       <ImageBackground
@@ -94,13 +99,16 @@ const HomeScreen = () => {
               onCategoryPress={onSelectCategory}
             />
           </View>
-          <ScrollView>
-            <View style={styles.productsContainer}>
-              {products.map(product => (
-                <Product key={product.id} product={product} />
-              ))}
-            </View>
-          </ScrollView>
+          <FlatList
+            style={styles.listWrapper}
+            data={products}
+            columnWrapperStyle={styles.productsRow}
+            numColumns={2}
+            contentContainerStyle={styles.productsContainer}
+            renderItem={({item}) => (
+              <Product key={item.id} product={item} onPress={onProductClick} />
+            )}
+          />
         </View>
       </SafeAreaView>
     </View>
@@ -150,10 +158,15 @@ const styles = StyleSheet.create({
     objectFit: 'cover',
   },
   productsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexGrow: 1,
     gap: 20,
-    flexWrap: 'wrap',
+  },
+  productsRow: {
+    justifyContent: 'space-between',
+    paddingBottom: 10,
+  },
+  listWrapper: {
+    height: '35%',
   },
 });
 
